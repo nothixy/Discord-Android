@@ -63,7 +63,7 @@ div > div.iconWrapper-2OrFZ1:nth-child(3), .divider-3FBTu8 {
     position: absolute;
     margin: 0;
     width: 100%;
-    left: 0;
+    left: 0 !important;
     height: calc(100% - 50px);
     bottom: 0;
 }
