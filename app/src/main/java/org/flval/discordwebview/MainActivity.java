@@ -238,8 +238,6 @@ public class MainActivity extends AppCompatActivity {
         if (appLinkIntent.getAction().equals("android.intent.action.VIEW")) {
             String appLinkAction = appLinkIntent.getAction();
             Uri appLinkData = appLinkIntent.getData();
-            Log.d("appLinkIntent", appLinkIntent.toString());
-          Log.d("appLinkData", appLinkData.getLastPathSegment());
             String incomingURL = appLinkIntent.getDataString() + appLinkData.getLastPathSegment();
             discord.loadUrl(incomingURL);
         } else {
