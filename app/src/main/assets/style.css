@@ -1,0 +1,162 @@
+ * {
+     -webkit-touch-callout: none;
+     -webkit-user-select: none;
+     -khtml-user-select: none;
+     -moz-user-select: none;
+     -ms-user-select: none;
+     user-select: none;
+     -webkit-tap-highlight-color: transparent;
+ }
+ /* We need to move the text right */
+ .textAreaSlate-1ZzRVj {
+    margin-left: 15px;
+ }
+ /* The chat list */
+ .chat-3bRxxu {
+    position:  absolute;
+    height:  100%;
+    width:  100%;
+    top:  0;
+    left:  0;
+    z-index:  0;
+ }
+ /* Make some settings page scrollable horizontally */
+ .contentRegion-3nDuYy {
+ overflow-x: scroll;
+ }
+
+ /* The member list */
+.membersWrap-2h-GB4 {
+	position: absolute;
+	right: 0px;
+	height: 100%;
+	width: 0;
+	min-width: unset;
+	transition: width 0.2s;
+	transition-delay: 0.3s;
+}
+/* The cross in the settings */
+.toolsContainer-1edPuj {
+    position:  absolute;
+    padding: 0;
+    margin:  10px;
+    right:  0;
+    top: 0;
+}
+/* Move down the settings a bit */
+.contentColumn-2hrIYH {
+    margin-top: 15px;
+}
+div > div.iconWrapper-2OrFZ1:nth-child(3), .divider-3FBTu8 {
+    display: none;
+}
+.recentMentionsPopout-3rCiI6[style], .layer-v9HyYc, .messagesPopoutWrap-1MQ1bW {
+    right: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    max-width: unset !important;
+    max-height: unset !important;
+}
+.layer-v9HyYc {
+    position: absolute;
+    margin: 0;
+    width: 100%;
+    left: 0;
+    height: calc(100% - 50px);
+    bottom: 0;
+}
+.children-19S4PO > .iconWrapper-2OrFZ1 {
+    display: none;
+}
+.children-19S4PO {
+    overflow-x: scroll;
+}
+@media (max-width: 940px) {
+    .inviteToolbar-3F-l2g {
+        display: inline !important;
+    }
+}
+.children-19S4PO:after {
+    display: none;
+}
+.recentMentionsPopout-3rCiI6 {
+    width: 100%;
+}
+/* Don't display the title, already in actionbar */
+.title-29uC1r {
+    display: none;
+}
+ /* The channels list */
+ .sidebar-2K8pFh {
+    z-index: 500;
+    height: 100%;
+    width: 0;
+    left: 72px;
+    top: 0;
+    position: absolute;
+    transition: width 0.2s;
+    transition-delay: 0.3s;
+ }
+ /* The settings list */
+ .sidebarRegion-VFTUkN, .sidebarRegionScroller-3MXcoP {
+    z-index: 500;
+    height: 100%;
+    width: 0;
+    left: 0;
+    top: 0;
+    position: absolute;
+    transition: width 0.2s;
+    transition-delay: 0.3s;
+ }
+ /* Hide some call buttons */
+ .userSettingsVoice-iwdUCU > .children-rWhLdy > .marginBottom20-32qID7:nth-child(5) {
+    display: none;
+ }
+ .bottomControls-lIJyYL > .justifyEnd-2E6vba > div > button:nth-child(1) {
+ display: none;
+ }
+ .bottomControls-lIJyYL > .justifyCenter-3D2jYp > div > div:nth-child(2) {
+ display: none;
+ }
+ /* Hide discord messages, they are ugly */
+ .notice-2FJMB4 {
+ display: none;
+ }
+ .scroller-2FKFPG.systemPad-3UxEGl.members-1998pB {
+    width: 100%;
+ }
+ /* No scrollbars, ugly */
+::-webkit-scrollbar {
+    display: none;
+}
+div.scroller-2TZvBN > .listItem-2P_4kh:nth-last-child(1), div.scroller-2TZvBN > .listItem-2P_4kh:nth-last-child(2) {
+    display: none;
+}
+a[href="https://support.discordapp.com"] {
+    display: none;
+}
+/* We can't upload files :/ */
+.attachButton-2WznTc {
+    display: none;
+}
+/* Adjust the buttons on the message bar */
+.textAreaSlate-1ZzRVj {
+    margin-left: 15px;
+}
+.emojiButtonNormal-TdumYh {
+    margin-right: 15px;
+}
+.base-3dtUhz {
+    left: 0;
+}
+.wrapper-1Rf91z {
+    z-index: 500;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    transition: width 0.3s;
+}

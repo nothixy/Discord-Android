@@ -1,0 +1,29 @@
+ .sidebar-2K8pFh {
+    z-index: 500;
+    width: 0;
+    position: absolute;
+    height: 100%;
+    left: 72px;
+    top: 0;
+    transition: width 0.2s;
+ }
+ .wrapper-1Rf91z {
+     z-index: 500;
+     position: absolute;
+     top: 0;
+     left: 0;
+     height: 100%;
+     width: 0;
+     transition: width 0.3s;
+     transition-delay: 0.5s;
+ }
+  .sidebarRegion-VFTUkN, .sidebarRegionScroller-3MXcoP {
+     z-index: 500;
+     height: 100%;
+     width: 0;
+     left: 0;
+     top: 0;
+     position: absolute;
+     transition: width 0.2s;
+     transition-delay: 0.3s;
+  }

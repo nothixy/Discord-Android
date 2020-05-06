@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:clickable="true"
+        android:title="Interface">
+        <Preference
+            app:fragment="org.flval.discordwebview.CSSFragment"
+            app:key="customcss"
+            app:summary="@string/customcssdesc"
+            app:title="@string/customcss" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="About">
+        <Preference
+            android:key="git"
+            android:title="@string/sourcecode"
+            android:summary="https://gitlab.com/srgoti/discord">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://gitlab.com/srgoti/discord" />
+        </Preference>
+    </PreferenceCategory>
+</PreferenceScreen>

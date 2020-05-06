@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Discord</string>
+    <string name="welcome">Bienvenue dans</string>
+    <string name="loadingtip">Chargement de Discord</string>
+    <string name="cancel">Annuler</string>
+    <string name="save">Sauvegarder</string>
+    <string name="customcss">CSS utilisateur</string>
+    <string name="customcssdesc">Changer des éléments de l\'interface avec des fichiers CSS</string>
+    <string name="first_fragment_label">First fragment</string>
+    <string name="second_fragment_label">Second fragment</string>
+    <string name="darkmode">Mode sombre</string>
+    <string name="sourcecode">Code source</string>
+    <string name="cssfiles">Fichiers CSS</string>
+    <string name="addfile">Ajouter un fichier CSS</string>
+</resources>

@@ -1,0 +1,10 @@
+.membersWrap-2h-GB4 {
+	position: absolute;
+	right: 0px;
+	top: 0;
+	height: 100%;
+	width: 0;
+	min-width: unset;
+	transition: 0.2s;
+	transition-delay: 0.3s;
+}

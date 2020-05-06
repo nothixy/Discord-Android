@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/app_bar_people"
+        android:icon="@drawable/ic_people_24px"
+        android:title="app_bar_people"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/Settings"
+        android:icon="@drawable/ic_more_vert_24px"
+        android:title="Settings"
+        app:showAsAction="never" />
+</menu>
