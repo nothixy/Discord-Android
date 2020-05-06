@@ -198,6 +198,8 @@ public class MainActivity extends AppCompatActivity {
             public void onProgressChanged(WebView view, int newProgress) {
                 if (newProgress == 100) {
                     Boolean loaded = false;
+                    ConstraintLayout loading = (ConstraintLayout) findViewById(R.id.loading);
+                    loading.setVisibility(View.INVISIBLE);
                     currenturl = discord.getUrl();
                     if (currenturl.endsWith("@me") && loaded == false) {
                         injectCSS("style.css");
@@ -205,8 +207,6 @@ public class MainActivity extends AppCompatActivity {
                         injectCSS("style_menuleft_close.css");
                         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                         loaded = true;
-                        ConstraintLayout loading = (ConstraintLayout) findViewById(R.id.loading);
-                        loading.setVisibility(View.INVISIBLE);
                     }
                     Map<String, ?> saveddata = PreferenceManager.getDefaultSharedPreferences(context).getAll();
 //                  sharedPreferences = preferenceManager.getSharedPreferences();
