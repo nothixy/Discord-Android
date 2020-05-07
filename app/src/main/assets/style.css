@@ -32,8 +32,7 @@
 	height: 100%;
 	width: 0;
 	min-width: unset;
-	transition: width 0.2s;
-	transition-delay: 0.3s;
+	transition: width 0.3s;
 }
 /* The cross in the settings */
 .toolsContainer-1edPuj {
@@ -96,8 +95,7 @@ div > div.iconWrapper-2OrFZ1:nth-child(3), .divider-3FBTu8 {
     left: 72px;
     top: 0;
     position: absolute;
-    transition: width 0.2s;
-    transition-delay: 0.3s;
+    transition: width 0.3s;
  }
  /* The settings list */
  .sidebarRegion-VFTUkN, .sidebarRegionScroller-3MXcoP {
@@ -107,8 +105,7 @@ div > div.iconWrapper-2OrFZ1:nth-child(3), .divider-3FBTu8 {
     left: 0;
     top: 0;
     position: absolute;
-    transition: width 0.2s;
-    transition-delay: 0.3s;
+    transition: width 0.3s;
  }
  /* Hide some call buttons */
  .userSettingsVoice-iwdUCU > .children-rWhLdy > .marginBottom20-32qID7:nth-child(5) {

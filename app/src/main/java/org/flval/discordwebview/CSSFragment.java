@@ -1,9 +1,14 @@
 package org.flval.discordwebview;
 
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,10 +26,19 @@ import androidx.preference.PreferenceScreen;
 import androidx.preference.SwitchPreference;
 import androidx.preference.SwitchPreferenceCompat;
 
+import java.io.File;
+import java.io.InputStream;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
+
+import static android.content.Intent.ACTION_GET_CONTENT;
+import static android.content.Intent.ACTION_OPEN_DOCUMENT;
+import static android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION;
+import static android.content.Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
 
 public class CSSFragment extends PreferenceFragmentCompat {
 
@@ -50,13 +64,22 @@ public class CSSFragment extends PreferenceFragmentCompat {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != 0) {
-            String filepath = data.getDataString();
-            filepath = filepath.replace("content://com.android.externalstorage.documents/document/primary%3A", "/sdcard/");
-            filepath = filepath.replace("content://com.android.externalstorage.documents/document/home%3A", "/sdcard/Documents/");
+            String uri = data.getDataString();
+            Uri filepath = data.getData();
+            final int flags = data.getFlags() & (FLAG_GRANT_READ_URI_PERMISSION | FLAG_GRANT_WRITE_URI_PERMISSION);
+            ContentResolver resolver = getContext().getContentResolver();
+            if(Build.VERSION.SDK_INT < 19) {
+                getContext().getApplicationContext().grantUriPermission("org.flval.discordwebview", filepath, Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+            } else {
+                resolver.takePersistableUriPermission(filepath, flags);
+            }
+//            String filepath = fileUri.getPath();
+//            filepath = filepath.replace("content://com.android.externalstorage.documents/document/primary%3A", "/sdcard/");
+//            filepath = filepath.replace("content://com.android.externalstorage.documents/document/home%3A", "/sdcard/Documents/");
             PreferenceScreen thisscreen = getPreferenceScreen();
             PreferenceCategory thiscategory = (PreferenceCategory) findPreference("cssfiles");
             CheckBoxPreference pref = new CheckBoxPreference(getContext());
-            pref.setTitle(filepath);
+            pref.setTitle(filepath.toString());
             pref.setOnPreferenceChangeListener(new CheckBoxPreference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -190,9 +213,10 @@ public class CSSFragment extends PreferenceFragmentCompat {
         addfile.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                Intent file = new Intent(Intent.ACTION_GET_CONTENT);
+                Intent file = new Intent(ACTION_OPEN_DOCUMENT);
                 file.setType("text/css");
                 file.addCategory(Intent.CATEGORY_OPENABLE);
+                file.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                 startActivityForResult(file, 8778);
                 return true;
             }

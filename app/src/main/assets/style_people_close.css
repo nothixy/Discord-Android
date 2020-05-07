@@ -5,6 +5,5 @@
 	height: 100%;
 	width: 0;
 	min-width: unset;
-	transition: 0.2s;
-	transition-delay: 0.3s;
+	transition: width 0.3s;
 }

@@ -1,7 +1,6 @@
 package org.flval.discordwebview;
 
 import android.Manifest;
-import android.app.Instrumentation;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,32 +9,24 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.BaseInputConnection;
 import android.webkit.ConsoleMessage;
 import android.webkit.CookieManager;
 import android.webkit.PermissionRequest;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.preference.Preference;
-import androidx.preference.PreferenceCategory;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -113,6 +104,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+/*        SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                discord.reload();
+            }
+        });*/
         setContentView(R.layout.activity_main);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar6));
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
@@ -211,17 +209,19 @@ public class MainActivity extends AppCompatActivity {
                     Map<String, ?> saveddata = PreferenceManager.getDefaultSharedPreferences(context).getAll();
 //                  sharedPreferences = preferenceManager.getSharedPreferences();
                     Boolean cssenabled = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context).getBoolean("CSSEnabled", false);
-                    if (cssenabled) {
+//                    if (cssenabled) {
                         for (Map.Entry<String, ?> entry : saveddata.entrySet()) {
                             if (entry.toString().startsWith("PATH")) {
                                 String realentry = entry.toString().substring(4);
                                 String[] entryParts = realentry.split("=");
                                 if (entryParts[1].equals("true")) {
+                                    Uri cssuri = Uri.parse(entryParts[0]);
+                                    Log.d("CSS FILE TO LOAD", entryParts[0]);
                                     injectCSSfromstorage(entryParts[0]);
                                 }
                             }
                         }
-                    }
+//                    }
                     if (currenturl.contains("/channels/") && !currenturl.contains("@me")) {
                         OptionMenu.findItem(R.id.app_bar_people).setVisible(true);
                     } else {
@@ -271,7 +271,9 @@ public class MainActivity extends AppCompatActivity {
     private void injectCSSfromstorage(String cssfile) {
         WebView view = findViewById(R.id.webview);
         try {
-            InputStream css = new FileInputStream(cssfile);
+            Uri uri = Uri.parse(cssfile);
+            Log.d("PERMISSIONS", String.valueOf(getContentResolver().getPersistedUriPermissions()));
+            InputStream css = getContentResolver().openInputStream(uri);
             byte[] cssbuffer = new byte[css.available()];
             css.read(cssbuffer);
             css.close();

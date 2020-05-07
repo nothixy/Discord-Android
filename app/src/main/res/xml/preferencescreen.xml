@@ -14,10 +14,10 @@
         <Preference
             android:key="git"
             android:title="@string/sourcecode"
-            android:summary="https://gitlab.com/srgoti/discord">
+            android:summary="https://gitlab.com/srgoti/discord-android">
             <intent
                 android:action="android.intent.action.VIEW"
-                android:data="https://gitlab.com/srgoti/discord" />
+                android:data="https://gitlab.com/srgoti/discord-android" />
         </Preference>
     </PreferenceCategory>
 </PreferenceScreen>
