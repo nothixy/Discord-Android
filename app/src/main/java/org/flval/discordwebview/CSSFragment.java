@@ -48,7 +48,6 @@ public class CSSFragment extends PreferenceFragmentCompat {
     PreferenceCategory cat;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-    int i = 0;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,9 +72,6 @@ public class CSSFragment extends PreferenceFragmentCompat {
             } else {
                 resolver.takePersistableUriPermission(filepath, flags);
             }
-//            String filepath = fileUri.getPath();
-//            filepath = filepath.replace("content://com.android.externalstorage.documents/document/primary%3A", "/sdcard/");
-//            filepath = filepath.replace("content://com.android.externalstorage.documents/document/home%3A", "/sdcard/Documents/");
             PreferenceScreen thisscreen = getPreferenceScreen();
             PreferenceCategory thiscategory = (PreferenceCategory) findPreference("cssfiles");
             CheckBoxPreference pref = new CheckBoxPreference(getContext());
@@ -85,16 +81,13 @@ public class CSSFragment extends PreferenceFragmentCompat {
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     if (newValue.toString() == "true") {
                         pref.setChecked(true);
-                        Log.d("CASE 1", "enabled");
                     } else {
                         pref.setChecked(false);
-                        Log.d("CASE 1", "disabled");
                     }
                     editor.putString(String.valueOf("PATH" + preference), newValue.toString()).commit();
                     return true;
                 }
             });
-//            pref.setDefaultValue(true);
             editor.putString(String.valueOf("PATH" + filepath), "true").commit();
             thiscategory.addPreference(pref);
             pref.setChecked(true);
@@ -172,23 +165,18 @@ public class CSSFragment extends PreferenceFragmentCompat {
                 String realentry = entry.toString().substring(4);
                 String[] entryParts = realentry.split("=");
                 pref.setTitle(entryParts[0]);
-                Log.d("entryParts the real value", entryParts[1].toString());
                 if (entryParts[1].toString().equals("true")) {
                     pref.setChecked(true);
-                    Log.d("CASE 2", "enabled");
                 } else {
                     pref.setChecked(false);
-                    Log.d("CASE 2", "disabled");
                 }
                 pref.setOnPreferenceChangeListener(new CheckBoxPreference.OnPreferenceChangeListener() {
                     @Override
                     public boolean onPreferenceChange(Preference preference, Object newValue) {
                         if (newValue.toString() == "true") {
                             pref.setChecked(true);
-                            Log.d("CASE 3", newValue.toString());
                         } else {
                             pref.setChecked(false);
-                            Log.d("CASE 3", newValue.toString());
                         }
                         editor.putString(String.valueOf("PATH" + preference), newValue.toString()).apply();
                         return true;

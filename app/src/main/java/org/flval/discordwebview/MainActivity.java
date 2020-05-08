@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
     }
     public boolean peopleswitch() {
         if (!peopleopen[0]) {
-            Log.d("Opening people menu", "done");
             injectCSS("style_menuleft_close.css");
             menuopen[0] = false;
             injectCSS("style_people_open.css");
@@ -95,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.Settings:
                 startActivity(new Intent(MainActivity.this, SettingsActivity.class));
-                Log.d("test", "test");
                 return true;
         }
         return true;
@@ -104,13 +102,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-/*        SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                discord.reload();
-            }
-        });*/
         setContentView(R.layout.activity_main);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar6));
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
@@ -171,7 +162,6 @@ public class MainActivity extends AppCompatActivity {
             public boolean onConsoleMessage(ConsoleMessage response) {
                 if (response.message().startsWith(channelprefix)) {
                     String chantext = response.message().substring(channelprefix.length());
-                    Log.d("Channel", chantext);
                     getSupportActionBar().setTitle(chantext);
                 } else if (response.message() == "SETTINGSON") {
                     replace("on");
@@ -183,9 +173,7 @@ public class MainActivity extends AppCompatActivity {
 
             private void replace(String sw) {
                 if (sw == "on") {
-                    Log.d("SETTINGS ON BINGO", "WIN");
                 } else if (sw == "off") {
-                    Log.d("SETTINGS OFF BINGO", "WIN");
                 }
             }
 
@@ -216,7 +204,6 @@ public class MainActivity extends AppCompatActivity {
                                 String[] entryParts = realentry.split("=");
                                 if (entryParts[1].equals("true")) {
                                     Uri cssuri = Uri.parse(entryParts[0]);
-                                    Log.d("CSS FILE TO LOAD", entryParts[0]);
                                     injectCSSfromstorage(entryParts[0]);
                                 }
                             }
@@ -239,7 +226,6 @@ public class MainActivity extends AppCompatActivity {
             String appLinkAction = appLinkIntent.getAction();
             Uri appLinkData = appLinkIntent.getData();
             String incomingURL = appLinkIntent.getDataString();
-            Log.d("INCOMING URL", incomingURL);
             discord.loadUrl(incomingURL);
         } else {
             discord.loadUrl("https://discord.com/login");
@@ -272,7 +258,6 @@ public class MainActivity extends AppCompatActivity {
         WebView view = findViewById(R.id.webview);
         try {
             Uri uri = Uri.parse(cssfile);
-            Log.d("PERMISSIONS", String.valueOf(getContentResolver().getPersistedUriPermissions()));
             InputStream css = getContentResolver().openInputStream(uri);
             byte[] cssbuffer = new byte[css.available()];
             css.read(cssbuffer);

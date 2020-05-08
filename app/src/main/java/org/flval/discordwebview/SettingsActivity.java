@@ -31,6 +31,7 @@ public class SettingsActivity extends AppCompatActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.settingslayout, new SettingsFragment())
+                .addToBackStack(null)
                 .commit();
 
 
