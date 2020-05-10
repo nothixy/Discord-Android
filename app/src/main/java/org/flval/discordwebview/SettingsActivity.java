@@ -1,5 +1,6 @@
 package org.flval.discordwebview;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,7 +11,7 @@ import java.util.Objects;
 public class SettingsActivity extends AppCompatActivity {
     @Override
     public boolean onSupportNavigateUp() {
-        onBackPressed();
+        this.finish();
         return true;
     }
     @Override
@@ -24,6 +25,7 @@ public class SettingsActivity extends AppCompatActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.settingslayout, new SettingsFragment())
+                .addToBackStack(null)
                 .commit();
 
 

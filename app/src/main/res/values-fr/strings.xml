@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Discord</string>
     <string name="welcome">Bienvenue dans</string>
@@ -8,8 +9,15 @@
     <string name="customcssdesc">Changer des éléments de l\'interface avec des fichiers CSS</string>
     <string name="first_fragment_label">First fragment</string>
     <string name="second_fragment_label">Second fragment</string>
-    <string name="darkmode">Mode sombre</string>
+    <string name="colormode">Mode sombre</string>
     <string name="sourcecode">Code source</string>
     <string name="cssfiles">Fichiers CSS</string>
     <string name="addfile">Ajouter un fichier CSS</string>
+    <string name="themeprefs">Préférences de thème</string>
+    <string name="themeprefsdesc">Personnaliser l\'interface avec des thèmes</string>
+    <string name="deftheme">Paramètres du theme par défaut</string>
+    <string name="amoled">Mode noir complet</string>
+    <string name="color">Mode de couleur</string>
+    <string name="theme">Thème de l\'application</string>
+    <string name="ui">Interface</string>
 </resources>

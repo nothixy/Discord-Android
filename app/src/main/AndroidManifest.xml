@@ -191,7 +191,9 @@
         </activity>
         <activity
             android:name=".SettingsActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"></activity>
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+        </activity>
 
         <meta-data
             android:name="android.webkit.WebView.MetricsOptOut"

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/color">
+
+        <DropDownPreference
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:defaultValue="false"
+            android:entries="@array/sysuititles"
+            android:entryValues="@array/sysuivalues"
+            android:key="theme"
+            android:title="@string/colormode"
+            app:useSimpleSummaryProvider="true" />
+        <SwitchPreference
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:defaultValue="false"
+            android:key="darkblack"
+            android:title="@string/amoled" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/ui">
+        <DropDownPreference
+            android:id="@+id/theme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:defaultValue="true"
+            app:entries="@array/themes"
+            app:entryValues="@array/themesvalues"
+            app:title="@string/theme"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+</PreferenceScreen>

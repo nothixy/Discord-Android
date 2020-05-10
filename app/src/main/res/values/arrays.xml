@@ -9,7 +9,22 @@
         <item>reply</item>
         <item>reply_all</item>
     </string-array>
-    <string-array name="cssfiles">
-
+    <string-array name="sysuititles">
+        <item>Always light</item>
+        <item>Always dark</item>
+        <item>Follow system</item>
+    </string-array>
+    <string-array name="sysuivalues">
+        <item>light</item>
+        <item>dark</item>
+        <item>sysui</item>
+    </string-array>
+    <string-array name="themes">
+        <item>Discord</item>
+        <item>Material</item>
+    </string-array>
+    <string-array name="themesvalues">
+        <item>discord</item>
+        <item>material</item>
     </string-array>
 </resources>

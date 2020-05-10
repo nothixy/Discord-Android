@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
@@ -15,34 +16,28 @@ import android.view.View;
 import android.webkit.ConsoleMessage;
 import android.webkit.CookieManager;
 import android.webkit.PermissionRequest;
-import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import android.preference.PreferenceManager;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
-
-    PreferenceManager preferenceManager;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
-    private ValueCallback<Uri[]> UploadMessage;
     WebView discord;
     private Menu OptionMenu;
     private Context context;
+    boolean loaded = false;
 
     public boolean onCreateOptionsMenu(Menu menu) {
         OptionMenu = menu;
@@ -56,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         menuleftswitch();
     }
-    public boolean menuleftswitch() {
+    public void menuleftswitch() {
         if (!menuopen[0]) {
             injectCSS("style_people_close.css");
             peopleopen[0] = false;
@@ -65,10 +60,9 @@ public class MainActivity extends AppCompatActivity {
         } else {
             injectCSS("style_menuleft_close.css");
             menuopen[0] = false;
-        };
-        return true;
+        }
     }
-    public boolean peopleswitch() {
+    public void peopleswitch() {
         if (!peopleopen[0]) {
             injectCSS("style_menuleft_close.css");
             menuopen[0] = false;
@@ -77,8 +71,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             injectCSS("style_people_close.css");
             peopleopen[0] = false;
-        };
-        return true;
+        }
     }
     public boolean onSupportNavigateUp() {
         peopleswitch();
@@ -104,8 +97,23 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar6));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_24px);
+
+        this.context = getApplicationContext();
+        String darkmode = PreferenceManager.getDefaultSharedPreferences(context).getString("mode", "sysui");
+        assert darkmode != null;
+        switch (darkmode) {
+            case "dark" :
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                break;
+            case "light" :
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                break;
+            case "sysui" :
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                break;
+        }
 
 
         List<String> perms = new ArrayList<>();
@@ -123,9 +131,9 @@ public class MainActivity extends AppCompatActivity {
         }
         if (!perms.isEmpty()) {
             int MY_PERMISSIONS_ALL = 1;
-            ActivityCompat.requestPermissions(MainActivity.this, perms.toArray(new String[perms.size()]), MY_PERMISSIONS_ALL);
+            int size = perms.size();
+            ActivityCompat.requestPermissions(MainActivity.this, perms.toArray(new String[size]), MY_PERMISSIONS_ALL);
         }
-        this.context = getApplicationContext();
 
 
         discord = (WebView) findViewById(R.id.webview);
@@ -142,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
         // Enable Javascript
         discord.getSettings().setJavaScriptEnabled(true);
 
-        discord.setWebContentsDebuggingEnabled(true);
+        WebView.setWebContentsDebuggingEnabled(true);
         // Add a WebViewClient
         discord.setWebViewClient(new WebViewClient() {
             @Override
@@ -153,62 +161,44 @@ public class MainActivity extends AppCompatActivity {
         });
 
         discord.setWebChromeClient(new WebChromeClient() {
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return false;
-            }
             String channelprefix = "@CHANNEL :";
 
             public boolean onConsoleMessage(ConsoleMessage response) {
                 if (response.message().startsWith(channelprefix)) {
                     String chantext = response.message().substring(channelprefix.length());
-                    getSupportActionBar().setTitle(chantext);
-                } else if (response.message() == "SETTINGSON") {
-                    replace("on");
-                } else if (response.message() == "SETTINGSOFF") {
-                    replace("off");
+                    Objects.requireNonNull(getSupportActionBar()).setTitle(chantext);
                 }
                 return true;
             }
-
-            private void replace(String sw) {
-                if (sw == "on") {
-                } else if (sw == "off") {
-                }
-            }
-
             public void onPermissionRequest(PermissionRequest request) {
                 request.grant(request.getResources());
             }
 
             public void onProgressChanged(WebView view, int newProgress) {
                 if (newProgress == 100) {
-                    Boolean loaded = false;
                     ConstraintLayout loading = (ConstraintLayout) findViewById(R.id.loading);
                     loading.setVisibility(View.INVISIBLE);
                     currenturl = discord.getUrl();
-                    if (currenturl.endsWith("@me") && loaded == false) {
+                    if (currenturl.endsWith("@me") && !loaded) {
                         injectCSS("style.css");
                         injectCSS("style_people_close.css");
                         injectCSS("style_menuleft_close.css");
-                        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
                         loaded = true;
                     }
                     Map<String, ?> saveddata = PreferenceManager.getDefaultSharedPreferences(context).getAll();
-//                  sharedPreferences = preferenceManager.getSharedPreferences();
-                    Boolean cssenabled = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context).getBoolean("CSSEnabled", false);
-//                    if (cssenabled) {
+                    boolean cssenabled = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("CSSEnabled", false);
+                    //if (cssenabled) {
                         for (Map.Entry<String, ?> entry : saveddata.entrySet()) {
                             if (entry.toString().startsWith("PATH")) {
                                 String realentry = entry.toString().substring(4);
                                 String[] entryParts = realentry.split("=");
                                 if (entryParts[1].equals("true")) {
-                                    Uri cssuri = Uri.parse(entryParts[0]);
                                     injectCSSfromstorage(entryParts[0]);
                                 }
                             }
                         }
-//                    }
+                    //}
                     if (currenturl.contains("/channels/") && !currenturl.contains("@me")) {
                         OptionMenu.findItem(R.id.app_bar_people).setVisible(true);
                     } else {
@@ -221,10 +211,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         // ATTENTION: This was auto-generated to handle app links.
-        Intent appLinkIntent = getIntent();
-        if (appLinkIntent.getAction().equals("android.intent.action.VIEW")) {
-            String appLinkAction = appLinkIntent.getAction();
-            Uri appLinkData = appLinkIntent.getData();
+        Intent appLinkIntent;
+        appLinkIntent = getIntent();
+        if (Objects.equals(appLinkIntent.getAction(), "android.intent.action.VIEW")) {
             String incomingURL = appLinkIntent.getDataString();
             discord.loadUrl(incomingURL);
         } else {
@@ -259,6 +248,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             Uri uri = Uri.parse(cssfile);
             InputStream css = getContentResolver().openInputStream(uri);
+            assert css != null;
             byte[] cssbuffer = new byte[css.available()];
             css.read(cssbuffer);
             css.close();

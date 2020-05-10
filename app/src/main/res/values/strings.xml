@@ -8,7 +8,7 @@
     <string name="customcssdesc">Change UI elements with CSS files</string>
     <string name="first_fragment_label">First fragment</string>
     <string name="second_fragment_label">Second fragment</string>
-    <string name="darkmode">Dark mode</string>
+    <string name="colormode">Dark mode</string>
     <string name="sourcecode">Source code</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -28,5 +28,12 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="cssfiles">CSS files</string>
     <string name="addfile">Add a CSS file</string>
+    <string name="themeprefs">Theme preferences</string>
     <string name="asset_statements" translatable="false">[{ \"include\": \"https://discord.gg/.well-known/assetlinks.json\" }]</string>
+    <string name="themeprefsdesc">Customize the interface with themes</string>
+    <string name="deftheme">Default theme settings</string>
+    <string name="amoled">Black dark mode</string>
+    <string name="color">Color mode</string>
+    <string name="theme">App theme</string>
+    <string name="ui">Interface</string>
 </resources>

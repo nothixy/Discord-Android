@@ -42,6 +42,8 @@ public class CSSFragment extends PreferenceFragmentCompat {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.settingsbar, menu);
         barMenu = menu;
+        MenuItem item = barMenu.findItem(R.id.deletecss);
+        item.setVisible(true);
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -122,7 +124,10 @@ public class CSSFragment extends PreferenceFragmentCompat {
         switch (item.getItemId()) {
             case R.id.deletecss:
                 setmode();
-                return true;
+                break;
+            case android.R.id.home:
+                getFragmentManager().popBackStack();
+                break;
         }
         return true;
     }

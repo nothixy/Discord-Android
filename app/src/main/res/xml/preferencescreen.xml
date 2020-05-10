@@ -7,8 +7,8 @@
         <Preference
             app:fragment="org.flval.discordwebview.CSSFragment"
             app:key="customcss"
-            app:summary="@string/customcssdesc"
-            app:title="@string/customcss" />
+            app:summary="@string/themeprefsdesc"
+            app:title="@string/themeprefs" />
     </PreferenceCategory>
     <PreferenceCategory android:title="About">
         <Preference
