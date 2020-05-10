@@ -3,13 +3,11 @@ package org.flval.discordwebview;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Base64;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,7 +20,6 @@ import android.webkit.WebViewClient;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -96,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar6));
+        setSupportActionBar(findViewById(R.id.toolbar6));
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_24px);
 
@@ -136,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        discord = (WebView) findViewById(R.id.webview);
+        discord = findViewById(R.id.webview);
         // Here we want the desktop site
         String newUA = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.116 Safari/537.36";
         discord.getSettings().setUserAgentString(newUA);
@@ -176,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
 
             public void onProgressChanged(WebView view, int newProgress) {
                 if (newProgress == 100) {
-                    ConstraintLayout loading = (ConstraintLayout) findViewById(R.id.loading);
+                    ConstraintLayout loading = findViewById(R.id.loading);
                     loading.setVisibility(View.INVISIBLE);
                     currenturl = discord.getUrl();
                     if (currenturl.endsWith("@me") && !loaded) {
@@ -187,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
                         loaded = true;
                     }
                     Map<String, ?> saveddata = PreferenceManager.getDefaultSharedPreferences(context).getAll();
-                    boolean cssenabled = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("CSSEnabled", false);
+//                    boolean cssenabled = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("CSSEnabled", false);
                     //if (cssenabled) {
                         for (Map.Entry<String, ?> entry : saveddata.entrySet()) {
                             if (entry.toString().startsWith("PATH")) {
