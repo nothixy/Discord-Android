@@ -126,7 +126,7 @@ div > div.iconWrapper-2OrFZ1:nth-child(3), .divider-3FBTu8 {
  }
  /* No scrollbars, ugly */
 ::-webkit-scrollbar {
-    display: none;
+    display: none !important;
 }
 div.scroller-2TZvBN > .listItem-2P_4kh:nth-last-child(1), div.scroller-2TZvBN > .listItem-2P_4kh:nth-last-child(2) {
     display: none;
@@ -146,7 +146,7 @@ a[href="https://support.discord.com"] {
     margin-right: 15px;
 }
 .base-3dtUhz {
-    left: 0;
+    left: 0 !important;
 }
 .wrapper-1Rf91z {
     z-index: 500;
@@ -156,4 +156,57 @@ a[href="https://support.discord.com"] {
     height: 100%;
     width: 0;
     transition: width 0.3s;
+}
+div[aria-label="USER_SETTINGS"] > .standardSidebarView-3F1I7i .side-8zPYf6 > .item-PXvHYJ:nth-child(14) {
+    display: none !important;
+}
+@media (max-width: 1200px) {
+    .nowPlayingColumn-2sl4cE {
+        display: block;
+    }
+}
+.nowPlayingColumn-2sl4cE {
+    z-index:  500;
+    position:  absolute;
+    top:  0;
+    height:  100%;
+    right:  0;
+    width: 0;
+    min-width: unset;
+    max-width: unset;
+    transition: width 0.3s;
+}
+.headerClickable-2IVFo9, .headerDefault-1wrJcN, .card-FDVird:before, .root-1gCeng {
+	background-color: var(--background-primary) !important;
+}
+.codeRedemptionRedirect-1wVR4b, .headerClickable-2IVFo9, .headerDefault-1wrJcN, strong, .userHook-3AdCBF, .timestamp-1mruiI, .card-FDVird:before {
+	color: var(--text-normal) !important;
+}
+.tierHeaderLocked-1a2opw, .footer-3rDWdC {
+	background-color: var(--background-secondary) !important;
+}
+.tierBody-x9kBBp {
+	background-color: var(--background-primary) !important;
+}
+.gemIndicatorContainer-2jdECl {
+	background-color: var(--background-floating) !important;
+}
+.tierLabel-39IsmN {
+	color: var(--header-primary) !important;
+}
+.codeRedemptionRedirect-1wVR4b {
+	color: var(--header-primary) !important;
+	background-color: var(--background-secondary) !important;
+}
+.content-8biNdB ul li {
+	color: var(--text-muted) !important;
+}
+.theme-light .notches-1sAcEM.gray-3_LNYR {
+	background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='20' fill='%2336393f'%3E%3Cpath fill-rule='evenodd' d='M0 0h8v20H0V0zm4 2a2 2 0 00-2 2v12a2 2 0 104 0V4a2 2 0 00-2-2z'/%3E%3C/svg%3E");
+}
+.theme-dark .notches-1sAcEM.gray-3_LNYR {
+	background-image: url("data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='20' fill='%23fff'><path fill-rule='evenodd' d='M0 0h8v20H0V0zm4 2a2 2 0 00-2 2v12a2 2 0 104 0V4a2 2 0 00-2-2z'/></svg>");
+}
+div.css-6nrxdk-singleValue, div.css-11dkexk-indicatorContainer {
+	color: var(--text-normal) !important;
 }

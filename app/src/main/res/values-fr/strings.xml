@@ -20,4 +20,6 @@
     <string name="color">Mode de couleur</string>
     <string name="theme">Thème de l\'application</string>
     <string name="ui">Interface</string>
+    <string name="reload">Actualiser</string>
+    <string name="settings">Paramètres</string>
 </resources>

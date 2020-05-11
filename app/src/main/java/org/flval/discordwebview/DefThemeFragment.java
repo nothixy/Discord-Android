@@ -42,6 +42,7 @@ public class DefThemeFragment extends PreferenceFragmentCompat {
         assert dropDownPreference != null;
         dropDownPreference.setOnPreferenceChangeListener((preference, newValue) -> {
             editor.putString("mode", String.valueOf(newValue)).commit();
+            editor.putBoolean("requireReload", true).commit();
             context = getContext();
             String darkmode = String.valueOf(newValue);
             switch (darkmode) {

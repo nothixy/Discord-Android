@@ -20,15 +20,11 @@
             android:key="darkblack"
             android:title="@string/amoled" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/ui">
-        <DropDownPreference
-            android:id="@+id/theme"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:defaultValue="true"
-            app:entries="@array/themes"
-            app:entryValues="@array/themesvalues"
-            app:title="@string/theme"
-            app:useSimpleSummaryProvider="true" />
+    <PreferenceCategory android:title="Something else">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="switch_preference_1"
+            android:title="Hide paid functions" />
     </PreferenceCategory>
 </PreferenceScreen>

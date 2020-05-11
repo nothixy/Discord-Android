@@ -7,3 +7,19 @@
 	min-width: unset;
 	transition: width 0.3s;
 }
+@media (max-width: 1200px) {
+    .nowPlayingColumn-2sl4cE {
+        display: block;
+    }
+}
+.nowPlayingColumn-2sl4cE {
+    z-index:  500;
+    position:  absolute;
+    top:  0;
+    height:  100%;
+    right:  0;
+    width: 0;
+    min-width: unset;
+    max-width: unset;
+    transition: width 0.3s;
+}

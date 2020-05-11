@@ -9,6 +9,11 @@
     <item
         android:id="@+id/Settings"
         android:icon="@drawable/ic_more_vert_24px"
-        android:title="Settings"
+        android:title="@string/settings"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/reload"
+        android:icon="@drawable/ic_baseline_replay_24"
+        android:title="@string/reload"
         app:showAsAction="never" />
 </menu>

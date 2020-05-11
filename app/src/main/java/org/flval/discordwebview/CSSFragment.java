@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -28,7 +29,6 @@ import static android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION;
 import static android.content.Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
 
 public class CSSFragment extends PreferenceFragmentCompat {
-
     Boolean deletemode = false;
     Menu barMenu;
     MenuItem deleteButton;
@@ -73,9 +73,11 @@ public class CSSFragment extends PreferenceFragmentCompat {
                     pref.setChecked(false);
                 }
                 editor.putString("PATH" + preference, newValue.toString()).commit();
+                editor.putBoolean("requireReload", true).commit();
                 return true;
             });
             editor.putString("PATH" + filepath, "true").commit();
+            editor.putBoolean("requireReload", true).commit();
             assert thiscategory != null;
             thiscategory.addPreference(pref);
             pref.setChecked(true);
@@ -116,6 +118,7 @@ public class CSSFragment extends PreferenceFragmentCompat {
                     }
                 }
             }
+            editor.putBoolean("requireReload", true).commit();
             assert enabled != null;
             enabled.setVisible(true);
             assert addfile != null;
@@ -143,12 +146,6 @@ public class CSSFragment extends PreferenceFragmentCompat {
         sharedPreferences = getPreferenceManager().getSharedPreferences();
         editor = sharedPreferences.edit();
         SwitchPreference enabled = findPreference("enabled");
-        assert enabled != null;
-        enabled.setChecked(true);
-        enabled.setOnPreferenceChangeListener((preference, newValue) -> {
-            editor.putBoolean("CSSEnabled", Boolean.parseBoolean(newValue.toString()));
-            return true;
-        });
         Map<String, ?> saveddata = sharedPreferences.getAll();
         PreferenceCategory thiscat = findPreference("cssfiles");
         for(Map.Entry<String, ?> entry : saveddata.entrySet()) {
@@ -168,6 +165,7 @@ public class CSSFragment extends PreferenceFragmentCompat {
                     } else {
                         pref.setChecked(false);
                     }
+                    editor.putBoolean("requireReload", true).commit();
                     editor.putString("PATH" + preference, newValue.toString()).apply();
                     return true;
                 });
@@ -175,14 +173,15 @@ public class CSSFragment extends PreferenceFragmentCompat {
                 thiscat.addPreference(pref);
             }
         }
+        assert enabled != null;
         enabled.setOnPreferenceChangeListener((preference, newValue) -> {
             PreferenceCategory cssfiles = findPreference("cssfiles");
+            Log.d("PREFERENCE CHANGED", "IDK MAN");
+            Log.d("NEW VALUE OF PREFERENCE " + preference, Boolean.toString((Boolean) newValue));
+            editor.putBoolean("CSSEnabled", (Boolean) newValue).commit();
             assert cssfiles != null;
-            if (newValue.toString().equals("true")) {
-                cssfiles.setEnabled(true);
-            } else {
-                cssfiles.setEnabled(false);
-            }
+            cssfiles.setEnabled((Boolean) newValue);
+            editor.putBoolean("requireReload", true).commit();
             return true;
         });
         Preference addfile = findPreference("addfile");

@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Base64;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +23,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.preference.PreferenceManager;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -42,12 +43,15 @@ public class MainActivity extends AppCompatActivity {
         OptionMenu.findItem(R.id.app_bar_people).setVisible(false);
         return true;
     }
+
     String currenturl;
     final Boolean[] menuopen = {false};
     final Boolean[] peopleopen = {false};
+
     public void onBackPressed() {
         menuleftswitch();
     }
+
     public void menuleftswitch() {
         if (!menuopen[0]) {
             injectCSS("style_people_close.css");
@@ -59,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
             menuopen[0] = false;
         }
     }
+
     public void peopleswitch() {
         if (!peopleopen[0]) {
             injectCSS("style_menuleft_close.css");
@@ -70,24 +75,51 @@ public class MainActivity extends AppCompatActivity {
             peopleopen[0] = false;
         }
     }
+
     public boolean onSupportNavigateUp() {
         peopleswitch();
         return true;
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean("requireReload", false)) {
+            loaded = false;
+            discord.reload();
+            PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean("requireReload", false).commit();
+        }
+    }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 menuleftswitch();
-                return true;
+                break;
             case R.id.app_bar_people:
                 peopleswitch();
-                return true;
+                break;
+            case R.id.reload:
+                loaded = false;
+                discord.reload();
+                break;
             case R.id.Settings:
                 startActivity(new Intent(MainActivity.this, SettingsActivity.class));
-                return true;
+                break;
         }
         return true;
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,23 +128,21 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(findViewById(R.id.toolbar6));
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_24px);
-
         this.context = getApplicationContext();
+
         String darkmode = PreferenceManager.getDefaultSharedPreferences(context).getString("mode", "sysui");
         assert darkmode != null;
         switch (darkmode) {
-            case "dark" :
+            case "dark":
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 break;
-            case "light" :
+            case "light":
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 break;
-            case "sysui" :
+            case "sysui":
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
                 break;
         }
-
-
         List<String> perms = new ArrayList<>();
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             perms.add(Manifest.permission.CAMERA);
@@ -167,6 +197,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return true;
             }
+
             public void onPermissionRequest(PermissionRequest request) {
                 request.grant(request.getResources());
             }
@@ -176,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
                     ConstraintLayout loading = findViewById(R.id.loading);
                     loading.setVisibility(View.INVISIBLE);
                     currenturl = discord.getUrl();
-                    if (currenturl.endsWith("@me") && !loaded) {
+                    if (currenturl.contains("/channels/") && !loaded) {
                         injectCSS("style.css");
                         injectCSS("style_people_close.css");
                         injectCSS("style_menuleft_close.css");
@@ -184,19 +215,21 @@ public class MainActivity extends AppCompatActivity {
                         loaded = true;
                     }
                     Map<String, ?> saveddata = PreferenceManager.getDefaultSharedPreferences(context).getAll();
-//                    boolean cssenabled = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("CSSEnabled", false);
-                    //if (cssenabled) {
+                    boolean cssenabled = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("CSSEnabled", false);
+                    Log.d("IS CSS ENABLED ?", Boolean.toString(cssenabled));
+                    if (cssenabled) {
                         for (Map.Entry<String, ?> entry : saveddata.entrySet()) {
                             if (entry.toString().startsWith("PATH")) {
                                 String realentry = entry.toString().substring(4);
                                 String[] entryParts = realentry.split("=");
                                 if (entryParts[1].equals("true")) {
+                                    Log.d("LOADING CSS FILE", entryParts[0]);
                                     injectCSSfromstorage(entryParts[0]);
                                 }
                             }
                         }
-                    //}
-                    if (currenturl.contains("/channels/") && !currenturl.contains("@me")) {
+                    }
+                    if (currenturl.contains("/channels/") && (!currenturl.contains("@me") || currenturl.endsWith("@me"))) {
                         OptionMenu.findItem(R.id.app_bar_people).setVisible(true);
                     } else {
                         OptionMenu.findItem(R.id.app_bar_people).setVisible(false);
@@ -240,6 +273,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
     private void injectCSSfromstorage(String cssfile) {
         WebView view = findViewById(R.id.webview);
         try {

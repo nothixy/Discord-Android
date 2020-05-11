@@ -36,4 +36,6 @@
     <string name="color">Color mode</string>
     <string name="theme">App theme</string>
     <string name="ui">Interface</string>
+    <string name="reload">Reload</string>
+    <string name="settings">Settings</string>
 </resources>
