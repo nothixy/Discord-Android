@@ -1,0 +1,12 @@
+div[aria-label="USER_SETTINGS"] > .standardSidebarView-3F1I7i .side-8zPYf6 > :nth-child(8), div[aria-label="USER_SETTINGS"] > .standardSidebarView-3F1I7i .side-8zPYf6 > :nth-child(9), div[aria-label="USER_SETTINGS"] > .standardSidebarView-3F1I7i .side-8zPYf6 > :nth-child(10) {
+    display: none;
+}
+.channelTextArea-rNsIhG .buttons-3JBrkn > button {
+    display: none;
+}
+.menu-Sp6bN1 > :nth-child(1), .menu-Sp6bN1 > :nth-child(2) {
+    display: none;
+}
+div[aria-label="GUILD_SETTINGS"] > .standardSidebarView-3F1I7i .side-8zPYf6 > :nth-child(11), div[aria-label="GUILD_SETTINGS"] > .standardSidebarView-3F1I7i .side-8zPYf6 > :nth-child(12) {
+    display: none;
+}

@@ -20,11 +20,11 @@
             android:key="darkblack"
             android:title="@string/amoled" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="Something else">
+    <PreferenceCategory android:title="@string/misc">
 
         <SwitchPreference
             android:defaultValue="false"
-            android:key="switch_preference_1"
+            android:key="hidepaid"
             android:title="Hide paid functions" />
     </PreferenceCategory>
 </PreferenceScreen>

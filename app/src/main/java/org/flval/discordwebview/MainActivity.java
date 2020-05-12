@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
@@ -129,20 +130,15 @@ public class MainActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_24px);
         this.context = getApplicationContext();
-
-        String darkmode = PreferenceManager.getDefaultSharedPreferences(context).getString("mode", "sysui");
-        assert darkmode != null;
-        switch (darkmode) {
-            case "dark":
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                break;
-            case "light":
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                break;
-            case "sysui":
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                break;
+        AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        boolean isCall = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("isCall", false);
+        audioManager.setMode(AudioManager.MODE_IN_CALL);
+        if (isCall) {
+            audioManager.setSpeakerphoneOn(false);
+        } else {
+            audioManager.setSpeakerphoneOn(true);
         }
+
         List<String> perms = new ArrayList<>();
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             perms.add(Manifest.permission.CAMERA);
@@ -212,6 +208,12 @@ public class MainActivity extends AppCompatActivity {
                         injectCSS("style_people_close.css");
                         injectCSS("style_menuleft_close.css");
                         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+                        changecolor();
+                        boolean hidePaid = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("hidePaid", false);
+                        Log.d("DO WE NEED TO LOAD HIDEPAID ?", String.valueOf(hidePaid));
+                        if (hidePaid) {
+                            injectCSS("hidepaid.css");
+                        }
                         loaded = true;
                     }
                     Map<String, ?> saveddata = PreferenceManager.getDefaultSharedPreferences(context).getAll();
@@ -294,6 +296,34 @@ public class MainActivity extends AppCompatActivity {
                     "})()");
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+    private void changecolor() {
+        String darkmode = PreferenceManager.getDefaultSharedPreferences(context).getString("mode", "sysui");
+        assert darkmode != null;
+        Log.d("DARK MODE VALUE", darkmode);
+        switch (darkmode) {
+            case "dark":
+                getDarkMode();
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                break;
+            case "light":
+                Log.d("injecting CSS file", "colors-light.css");
+                injectCSS("colors-light.css");
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                break;
+            case "sysui":
+                getDarkMode();
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                break;
+        }
+    }
+    private void getDarkMode() {
+        boolean blackdarkmode = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("darkblack", false);
+        if (blackdarkmode) {
+            injectCSS("colors-darker.css");
+        } else {
+            injectCSS("colors-dark.css");
         }
     }
 }

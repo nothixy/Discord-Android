@@ -1,3 +1,4 @@
+ /* Do not highlight when long-pressing */
  * {
      -webkit-touch-callout: none;
      -webkit-user-select: none;
@@ -41,6 +42,10 @@
     margin:  10px;
     right:  0;
     top: 0;
+}
+/* Reduce server location dialog size */
+.regionSelectModal-12e-57 {
+    width: 100% !important;
 }
 /* Move down the settings a bit */
 .contentColumn-2hrIYH {
@@ -157,9 +162,6 @@ a[href="https://support.discord.com"] {
     width: 0;
     transition: width 0.3s;
 }
-div[aria-label="USER_SETTINGS"] > .standardSidebarView-3F1I7i .side-8zPYf6 > .item-PXvHYJ:nth-child(14) {
-    display: none !important;
-}
 @media (max-width: 1200px) {
     .nowPlayingColumn-2sl4cE {
         display: block;
@@ -176,6 +178,7 @@ div[aria-label="USER_SETTINGS"] > .standardSidebarView-3F1I7i .side-8zPYf6 > .it
     max-width: unset;
     transition: width 0.3s;
 }
+/* Fixes for colors on predefined themes */
 .headerClickable-2IVFo9, .headerDefault-1wrJcN, .card-FDVird:before, .root-1gCeng {
 	background-color: var(--background-primary) !important;
 }
@@ -209,4 +212,7 @@ div[aria-label="USER_SETTINGS"] > .standardSidebarView-3F1I7i .side-8zPYf6 > .it
 }
 div.css-6nrxdk-singleValue, div.css-11dkexk-indicatorContainer {
 	color: var(--text-normal) !important;
+}
+.peopleColumn-29fq28 {
+    background-color: var(--background-primary);
 }

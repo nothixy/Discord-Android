@@ -38,4 +38,6 @@
     <string name="ui">Interface</string>
     <string name="reload">Reload</string>
     <string name="settings">Settings</string>
+    <string name="prefcall">Prefere call mode</string>
+    <string name="misc">Miscellaneous</string>
 </resources>

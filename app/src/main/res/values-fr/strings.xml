@@ -22,4 +22,6 @@
     <string name="ui">Interface</string>
     <string name="reload">Actualiser</string>
     <string name="settings">Paramètres</string>
+    <string name="prefcall">Préférer le mode d\'appel</string>
+    <string name="misc">Divers</string>
 </resources>

@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.DropDownPreference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
+import androidx.preference.SwitchPreference;
 
 import java.util.Objects;
 
@@ -40,6 +41,10 @@ public class DefThemeFragment extends PreferenceFragmentCompat {
         editor = sharedPreferences.edit();
         DropDownPreference dropDownPreference = findPreference("theme");
         assert dropDownPreference != null;
+        SwitchPreference darkblack = findPreference("darkblack");
+        SwitchPreference hidePaid = findPreference("hidepaid");
+        assert darkblack != null;
+        assert hidePaid != null;
         dropDownPreference.setOnPreferenceChangeListener((preference, newValue) -> {
             editor.putString("mode", String.valueOf(newValue)).commit();
             editor.putBoolean("requireReload", true).commit();
@@ -47,15 +52,28 @@ public class DefThemeFragment extends PreferenceFragmentCompat {
             String darkmode = String.valueOf(newValue);
             switch (darkmode) {
                 case "light":
+                    darkblack.setEnabled(false);
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                     break;
                 case "dark":
+                    darkblack.setEnabled(true);
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                     break;
                 case "sysui":
+                    darkblack.setEnabled(true);
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
                     break;
             }
+            return true;
+        });
+        darkblack.setOnPreferenceChangeListener((preference, newValue) -> {
+            editor.putBoolean("darkblack", (Boolean) newValue).commit();
+            editor.putBoolean("requireReload", true).commit();
+            return true;
+        });
+        hidePaid.setOnPreferenceChangeListener((preference, newValue) -> {
+            editor.putBoolean("hidePaid", (Boolean) newValue).commit();
+            editor.putBoolean("requireReload", true).commit();
             return true;
         });
     }
