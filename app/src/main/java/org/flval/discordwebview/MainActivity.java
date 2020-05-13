@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -319,11 +320,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     private void getDarkMode() {
-        boolean blackdarkmode = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("darkblack", false);
-        if (blackdarkmode) {
-            injectCSS("colors-darker.css");
+        int nightModeFlags = getApplicationContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        if (nightModeFlags == 32) {
+            boolean blackdarkmode = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("darkblack", false);
+            if (blackdarkmode) {
+                injectCSS("colors-darker.css");
+            } else {
+                injectCSS("colors-dark.css");
+            }
         } else {
-            injectCSS("colors-dark.css");
+            injectCSS("colors-light.css");
         }
     }
 }

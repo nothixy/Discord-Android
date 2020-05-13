@@ -8,8 +8,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:defaultValue="false"
-            android:entries="@array/sysuititles"
-            android:entryValues="@array/sysuivalues"
             android:key="theme"
             android:title="@string/colormode"
             app:useSimpleSummaryProvider="true" />

@@ -19,6 +19,14 @@
         <item>dark</item>
         <item>sysui</item>
     </string-array>
+    <string-array name="sysuititlesless28">
+        <item>Always light</item>
+        <item>Always dark</item>
+    </string-array>
+    <string-array name="sysuivaluesless28">
+        <item>light</item>
+        <item>dark</item>
+    </string-array>
     <string-array name="themes">
         <item>Discord</item>
         <item>Material</item>
