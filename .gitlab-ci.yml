@@ -13,7 +13,7 @@ before_script:
   - unzip -d android-sdk-linux android-sdk.zip
   - echo y | android-sdk-linux/tools/bin/sdkmanager --install "platforms;android-${ANDROID_COMPILE_SDK}" --sdk_root=${ANDROID_HOME}
   - echo y | android-sdk-linux/tools/bin/sdkmanager --install "platform-tools" --sdk_root=${ANDROID_HOME}
-  - echo y | android-sdk-linux/tools/bin/sdkmanager --install "build-tools;${ANDROID_BUILD_TOOLS}"" --sdk_root=${ANDROID_HOME}
+  - echo y | android-sdk-linux/tools/bin/sdkmanager --install "build-tools;${ANDROID_BUILD_TOOLS}" --sdk_root=${ANDROID_HOME}
   - export ANDROID_HOME=$PWD/android-sdk-linux
   - export PATH=$PATH:$PWD/android-sdk-linux/platform-tools/
   - chmod +x ./gradlew
