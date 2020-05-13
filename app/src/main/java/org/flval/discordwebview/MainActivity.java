@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private Menu OptionMenu;
     private Context context;
     boolean loaded = false;
+    boolean hascustomtheme = false;
 
     public boolean onCreateOptionsMenu(Menu menu) {
         OptionMenu = menu;
@@ -209,7 +210,6 @@ public class MainActivity extends AppCompatActivity {
                         injectCSS("style_people_close.css");
                         injectCSS("style_menuleft_close.css");
                         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-                        changecolor();
                         boolean hidePaid = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("hidePaid", false);
                         Log.d("DO WE NEED TO LOAD HIDEPAID ?", String.valueOf(hidePaid));
                         if (hidePaid) {
@@ -228,9 +228,13 @@ public class MainActivity extends AppCompatActivity {
                                 if (entryParts[1].equals("true")) {
                                     Log.d("LOADING CSS FILE", entryParts[0]);
                                     injectCSSfromstorage(entryParts[0]);
+                                    hascustomtheme = true;
                                 }
                             }
                         }
+                    }
+                    if (!hascustomtheme) {
+                        changecolor();
                     }
                     if (currenturl.contains("/channels/") && (!currenturl.contains("@me") || currenturl.endsWith("@me"))) {
                         OptionMenu.findItem(R.id.app_bar_people).setVisible(true);
