@@ -309,7 +309,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("DARK MODE VALUE", darkmode);
         switch (darkmode) {
             case "dark":
-                getDarkMode();
+                getDarkMode("dark");
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 break;
             case "light":
@@ -318,14 +318,14 @@ public class MainActivity extends AppCompatActivity {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 break;
             case "sysui":
-                getDarkMode();
+                getDarkMode("sysui");
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
                 break;
         }
     }
-    private void getDarkMode() {
+    private void getDarkMode(String origin) {
         int nightModeFlags = getApplicationContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-        if (nightModeFlags == 32) {
+        if (nightModeFlags == 32 || origin.equals("dark")) {
             boolean blackdarkmode = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("darkblack", false);
             if (blackdarkmode) {
                 injectCSS("colors-darker.css");
