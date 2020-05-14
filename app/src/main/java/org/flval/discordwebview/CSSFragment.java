@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -176,8 +175,6 @@ public class CSSFragment extends PreferenceFragmentCompat {
         assert enabled != null;
         enabled.setOnPreferenceChangeListener((preference, newValue) -> {
             PreferenceCategory cssfiles = findPreference("cssfiles");
-            Log.d("PREFERENCE CHANGED", "IDK MAN");
-            Log.d("NEW VALUE OF PREFERENCE " + preference, Boolean.toString((Boolean) newValue));
             editor.putBoolean("CSSEnabled", (Boolean) newValue).commit();
             assert cssfiles != null;
             cssfiles.setEnabled((Boolean) newValue);

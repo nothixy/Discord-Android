@@ -211,7 +211,6 @@ public class MainActivity extends AppCompatActivity {
                         injectCSS("style_menuleft_close.css");
                         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
                         boolean hidePaid = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("hidePaid", false);
-                        Log.d("DO WE NEED TO LOAD HIDEPAID ?", String.valueOf(hidePaid));
                         if (hidePaid) {
                             injectCSS("hidepaid.css");
                         }
@@ -219,14 +218,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                     Map<String, ?> saveddata = PreferenceManager.getDefaultSharedPreferences(context).getAll();
                     boolean cssenabled = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("CSSEnabled", false);
-                    Log.d("IS CSS ENABLED ?", Boolean.toString(cssenabled));
                     if (cssenabled) {
                         for (Map.Entry<String, ?> entry : saveddata.entrySet()) {
                             if (entry.toString().startsWith("PATH")) {
                                 String realentry = entry.toString().substring(4);
                                 String[] entryParts = realentry.split("=");
                                 if (entryParts[1].equals("true")) {
-                                    Log.d("LOADING CSS FILE", entryParts[0]);
                                     injectCSSfromstorage(entryParts[0]);
                                     hascustomtheme = true;
                                 }
@@ -306,14 +303,12 @@ public class MainActivity extends AppCompatActivity {
     private void changecolor() {
         String darkmode = PreferenceManager.getDefaultSharedPreferences(context).getString("mode", "sysui");
         assert darkmode != null;
-        Log.d("DARK MODE VALUE", darkmode);
         switch (darkmode) {
             case "dark":
                 getDarkMode("dark");
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 break;
             case "light":
-                Log.d("injecting CSS file", "colors-light.css");
                 injectCSS("colors-light.css");
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 break;
