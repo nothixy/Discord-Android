@@ -18,4 +18,4 @@ Just open the app, go to settings -> Custom CSS -> Add a CSS file
 
 ## What are some projects for the future ?
 
-I need to add a way to change the order of the themes, perhaps javascript support, support for Android's dark theme, and fix some things
+I need to add a way to change the order of the themes, perhaps javascript support, and fix some things
