@@ -1,3 +1,5 @@
+[![pipeline status](https://gitlab.com/srgoti/discord-android/badges/master/pipeline.svg)](https://gitlab.com/srgoti/discord-android/-/commits/master)
+
 # Discord for android with theming support
 
 Clearly better than the original
