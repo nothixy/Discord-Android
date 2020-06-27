@@ -20,4 +20,6 @@ Just open the app, go to settings -> Custom CSS -> Add a CSS file
 
 I need to add a way to change the order of the themes, perhaps javascript support, and fix some things
 
+
+## Screenshot
 ![Screenshot](test.png)
