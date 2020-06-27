@@ -22,4 +22,4 @@ I need to add a way to change the order of the themes, perhaps javascript suppor
 
 
 ## Screenshot
-![Screenshot](test.png)
+![Screenshot](screenshot.png)
